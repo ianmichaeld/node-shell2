@@ -4,14 +4,15 @@ module.exports = {
     pwd: () => process.cwd(),
     date: () => new Date().toLocaleDateString(),
     ls: () => {
-        fs.readdir('.', (err, files) => {
-            if (err) throw err;
-            let output = ''
-            files.forEach((file) => {
-                output += file.toString() + '\n'
-            })
-            return output
-        })
-        return output
+        let output = fs.readdirSync('.')
+        // fs.readdir('.', (err, files) => {
+        //     if (err) throw err;
+        //     files.forEach((file) => {
+        //         output += (file.toString() + '\n')
+        //         console.log(output)
+        //     })
+        // })
+        let regex = /,/gi
+        return output.toString().replace(regex, '\n')
     }
 }
