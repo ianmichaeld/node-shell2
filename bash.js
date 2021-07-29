@@ -5,12 +5,14 @@ process.stdout.write('prompt > ')
 
 // stdin 'data' event fires after a user types in a line
 process.stdin.on('data', async function (data) {
-    const cmd = data.toString().trim() // remove newline
+    const input = data.toString().trim()
+    const cmd = input.split(' ')[0]
+    const args = input.slice(cmd.length + 1)
     if (commands.hasOwnProperty(cmd)) {
-        let output = await commands[cmd]()
+        let output = await commands[cmd](args)
         process.stdout.write(output)
     }
-    else process.stdout.write('You typed: \'' + cmd +'\'. Command not found.')
+    else process.stdout.write('You typed: \'' + input +'\'. Command not found.')
     
     process.stdout.write('\nprompt > ')
 })
