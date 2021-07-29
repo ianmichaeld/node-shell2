@@ -11,8 +11,10 @@ process.stdin.on('data', async function (data) {
     if (commands.hasOwnProperty(cmd)) {
         let output = await commands[cmd](args)
         process.stdout.write(output)
+        process.stdout.write('\nprompt > ')
     }
-    else process.stdout.write('You typed: \'' + input +'\'. Command not found.')
-    
-    process.stdout.write('\nprompt > ')
+    else {
+        process.stdout.write('You typed: \'' + input +'\'. Command not found.')
+        process.stdout.write('\nprompt > ')
+    }
 })
